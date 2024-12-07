@@ -28,3 +28,7 @@ This script adjusts the selected nodes' positions so that their lowest bounding 
 
 - This tool only affects the Y-position of nodes.
 - Useful for quickly normalizing assets before placement or instancing.
+
+## License
+
+This script is provided as-is. Feel free to modify and adjust it to fit your pipeline and naming conventions.
