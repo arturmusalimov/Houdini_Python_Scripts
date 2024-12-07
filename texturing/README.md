@@ -59,9 +59,24 @@ If the files follow this naming convention, the script will automatically link t
 
 ## Example Structure
 
-Your root folder might look like this:
+**Example Directory Structure:**
 
-RootFolder/ MaterialSet01/ tree_diff.jpg tree_nor.jpg tree_rough.jpg tree_disp.jpg MaterialSet02/ rock_diff.png rock_nor.png rock_rough.png rock_disp.png MaterialSet03/ metal_diff.exr metal_nor.exr metal_rough.exr metal_disp.exr
+- `RootFolder/`
+  - `MaterialSet01/`
+    - `tree_diff.jpg`
+    - `tree_nor.jpg`
+    - `tree_rough.jpg`
+    - `tree_disp.jpg`
+  - `MaterialSet02/`
+    - `rock_diff.png`
+    - `rock_nor.png`
+    - `rock_rough.png`
+    - `rock_disp.png`
+  - `MaterialSet03/`
+    - `metal_diff.exr`
+    - `metal_nor.exr`
+    - `metal_rough.exr`
+    - `metal_disp.exr`
 
 The script will let you quickly switch among `MaterialSet01`, `MaterialSet02`, and `MaterialSet03`.
 
