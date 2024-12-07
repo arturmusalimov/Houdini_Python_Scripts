@@ -13,17 +13,6 @@ This Python script helps you quickly swap out sets of PBR materials in Houdini. 
 - **Faster Workflow:**  
   Switch from one PBR material to another in seconds, helping you find the perfect look faster.
 
-## Why It’s Good
-
-- **Time-Saving:**  
-  No more manually browsing through file dialogs or manually setting texture paths.
-  
-- **Easy Iteration:**  
-  Quickly see how different texture sets look without stopping your workflow.
-  
-- **Simple UI Integration:**  
-  The provided user interface makes it easy to choose a root directory and flip through subfolders.
-
 ## Important Pre-Work
 
 You need to ensure that your texture files are named in a way the script can recognize them. For example, the script looks for these keywords in file names:  
