@@ -1,52 +1,37 @@
 # PBR Texture Swapping Tool for Houdini
 
-This Python script helps you quickly swap out sets of PBR materials in Houdini. It’s designed to speed up browsing through large collections of textures, letting you easily cycle through different material sets and instantly apply them to a chosen material node in your scene.
+This script allows rapid cycling through directories of PBR texture sets and automatically applies them to a selected material node in Houdini. It reduces manual re-linking of textures, streamlining the look development process.
 
-## What This Script Does
+## Features
 
-- **Automates Material Swapping:**  
-  Cycle through folders that contain sets of textures (diffuse, normal, roughness, displacement) with simple Next/Previous buttons.
+- **Automated Texture Assignment:**  
+  Assigns base color (diffuse), normal, roughness, and displacement textures based on filename patterns.
   
-- **Quick Previewing:**  
-  Quickly test different texture sets without manually re-linking every file.
+- **Directory Cycling:**  
+  Quickly navigate through multiple subfolders of texture sets using Next/Previous controls.
 
-- **Faster Workflow:**  
-  Switch from one PBR material to another in seconds, helping you find the perfect look faster.
+## Requirements
 
-## Important Pre-Work
+- Houdini
+- Python environment with `hou` module (Houdini’s Python)
+- `PySide2` (included in recent Houdini versions)
 
-You need to ensure that your texture files are named in a way the script can recognize them. For example, the script looks for these keywords in file names:  
-- `"diff"` for base color (diffuse) textures  
-- `"nor"` for normal maps  
-- `"rough"` for roughness maps  
-- `"disp"` for displacement maps
+## Pre-Setup
 
-Before you run the script, rename your textures so they include these keywords. For example:  
-- `myTexture_diff.png`  
-- `myTexture_nor.png`  
-- `myTexture_rough.png`  
-- `myTexture_disp.png`
+All textures should contain identifying substrings:
+- `diff` for base color maps
+- `nor` for normal maps
+- `rough` for roughness maps
+- `disp` for displacement maps
 
-If the files follow this naming convention, the script will automatically link them to the correct material parameters.
+Adjust your filenames before use.
 
-## How to Use
+## Usage
 
-1. **Place the Script:**  
-   Put the script in a location where Houdini can access it (e.g., your Houdini `pythonX.Xlibs` folder).
-
-2. **Open in Houdini:**  
-   Launch Houdini and run the script in the Python shell, or make a shelf tool to load it.
-
-3. **Set Root Directory:**  
-   In the pop-up window, choose the root folder containing all the subfolders of PBR textures.
-
-4. **Select a Material Node:**  
-   In the network view, select the material node you want to test textures on.
-
-5. **Cycle Through Textures:**  
-   Use the **Next Material** and **Previous Material** buttons to move through the list of subfolders. The script will instantly update the selected material node with the textures from the chosen folder.
-
-## Example Structure
+1. Place the script in a location accessible to Houdini (e.g., `pythonX.Xlibs`).
+2. Run the script and select the root directory containing subfolders of PBR textures.
+3. Select the material node to be updated.
+4. Use **Next Material** or **Previous Material** to cycle through texture sets.
 
 **Example Directory Structure:**
 
