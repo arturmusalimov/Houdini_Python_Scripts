@@ -52,11 +52,11 @@ class TextureAssigner:
 def getHoudiniMainWindow():
     return hou.qt.mainWindow()
 
+# Set GUI window properties
 class CreateWindow(ps.QtWidgets.QDialog):
     def __init__(self, parent=getHoudiniMainWindow()):
         super(CreateWindow, self).__init__(parent)
 
-        # Set GUI window properties
         self.setWindowTitle("Texture Loop Assign")
         self.setMinimumSize(300, 120)
 
@@ -66,19 +66,16 @@ class CreateWindow(ps.QtWidgets.QDialog):
         self.createConnections() 
 
     def createWidgets(self):
-        # Create widgets for user input and buttons
-        self.texturePathLineEdit = ps.QtWidgets.QLineEdit()  # Text field for directory path
-        self.texturePathButton = hou.qt.FileChooserButton()  # Button to select directory
-        self.nextFolderButton = ps.QtWidgets.QPushButton("Next Material")  # Button for next folder
-        self.previousFolderButton = ps.QtWidgets.QPushButton("Previous Material")  # Button for previous folder
+        self.texturePathLineEdit = ps.QtWidgets.QLineEdit()  
+        self.texturePathButton = hou.qt.FileChooserButton() 
+        self.nextFolderButton = ps.QtWidgets.QPushButton("Next Material")  
+        self.previousFolderButton = ps.QtWidgets.QPushButton("Previous Material")  
 
-        # Set up file chooser button behavior
         self.texturePathButton.setFileChooserTitle("Select Root Directory")
         self.texturePathButton.setFileChooserMode(hou.fileChooserMode.Read)
         self.texturePathButton.setFileChooserFilter(hou.fileType.Directory)
 
     def createLayouts(self):
-        # Define layout structure
         directoryPathLayout = ps.QtWidgets.QHBoxLayout()
         directoryPathLayout.addWidget(self.texturePathLineEdit)
         directoryPathLayout.addWidget(self.texturePathButton)
@@ -94,39 +91,39 @@ class CreateWindow(ps.QtWidgets.QDialog):
         mainLayout = ps.QtWidgets.QVBoxLayout(self)
         mainLayout.addLayout(formLayout)
 
+    # Connect user actions (button clicks) to the corresponding methods
     def createConnections(self):
-        # Connect user actions (button clicks) to the corresponding methods
         self.texturePathButton.fileSelected.connect(self.setTexturePathLineEditText)
         self.nextFolderButton.clicked.connect(self.moveToNextFolder)
         self.previousFolderButton.clicked.connect(self.moveToPreviousFolder)
 
-    def setTexturePathLineEditText(self, file_path):
-        # Set the text of the line edit to the selected file path
+    # Set the text of the line edit to the selected file path
+    def setTexturePathLineEditText(self, file_path):    
         self.texturePathLineEdit.setText(file_path)
-        self.textureAssigner = TextureAssigner(file_path)  # Initialize TextureAssigner with selected folder
+        self.textureAssigner = TextureAssigner(file_path)  
 
-    def moveToNextFolder(self):
-        # Move to the next folder and apply textures
+    # Move to the next folder and apply textures
+    def moveToNextFolder(self):        
         if not self.textureAssigner:
             print("No root folder selected.")
             return
         self.textureAssigner.move_to_next_folder()
         self.assignTextures()
 
+    # Move to the previous folder and apply textures
     def moveToPreviousFolder(self):
-        # Move to the previous folder and apply textures
         if not self.textureAssigner:
             print("No root folder selected.")
             return
         self.textureAssigner.move_to_previous_folder()
         self.assignTextures()
 
+    # Apply textures from the current folder to the selected material in Houdini
     def assignTextures(self):
-        # Apply textures from the current folder to the selected material in Houdini
         if not self.textureAssigner:
             print("No root folder selected.")
             return
-        material = hou.selectedNodes()[0]  # Get the selected material node in Houdini
+        material = hou.selectedNodes()[0] 
         self.textureAssigner.apply_textures(material)
 
 try:

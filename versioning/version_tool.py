@@ -95,18 +95,14 @@ class CreateVersioningWindow(ps.QtWidgets.QDialog):
         mainLayout.addLayout(buttonLayout)
 
     def save_last_directory(self, path):
-        # Store the path in hou.session
         hou.session.last_directory = path
 
     def load_last_directory(self):
-        # Check if the last_directory exists in hou.session
         return getattr(hou.session, 'last_directory', '')   
 
-
+    # Connect the root path button to the file chooser
     def createConnections(self):
-        # Connect the root path button to the file chooser
         self.rootPathButton.clicked.connect(self.selectRootPath)
-        # Connect the buttons to their respective functions
         self.saveVersionButton.clicked.connect(self.saveNewVersion)
         self.rollbackButton.clicked.connect(self.rollbackVersion)
         self.refreshObjectButton.clicked.connect(self.select_first_selected_object)
@@ -115,21 +111,19 @@ class CreateVersioningWindow(ps.QtWidgets.QDialog):
         root_path = ps.QtWidgets.QFileDialog.getExistingDirectory(self, "Select Root Directory")
         if root_path:
             self.rootPathLineEdit.setText(root_path)
-            self.save_last_directory(root_path)  # Save the root directory in hou.session
+            self.save_last_directory(root_path)  
 
+    # Save a new version of the asset
     def saveNewVersion(self):
-
         self.select_first_selected_object()
-
-        # Save a new version of the asset
         root_path = self.rootPathLineEdit.text()
         asset_name = self.assetNameLineEdit.text()
         if not self.versioning_tool:
             self.versioning_tool = VersioningTool(root_path, asset_name)
         self.versioning_tool.save_new_version()
 
+    # Roll back to a previous version
     def rollbackVersion(self):
-        # Roll back to a previous version (prompt for version number)
         root_path = self.rootPathLineEdit.text()
         asset_name = self.assetNameLineEdit.text()
         version_number, ok = ps.QtWidgets.QInputDialog.getInt(self, "Rollback Version", "Enter version number to rollback:")
@@ -137,17 +131,15 @@ class CreateVersioningWindow(ps.QtWidgets.QDialog):
             if not self.versioning_tool:
                 self.versioning_tool = VersioningTool(root_path, asset_name)
             self.versioning_tool.rollback_version(version_number)
-
+    
+    # Get the list of selected nodes in Houdini
     def select_first_selected_object(self):
-        # Get the list of selected nodes in Houdini
         selected_nodes = hou.selectedNodes()
-
-        # If there are selected nodes, use the first one
         if selected_nodes:
-            first_selected_node = selected_nodes[0]  # Get the first selected node
-            self.assetNameLineEdit.setText(first_selected_node.name())  # Set the node's name in the line edit
+            first_selected_node = selected_nodes[0]  
+            self.assetNameLineEdit.setText(first_selected_node.name())  
         else:
-            self.assetNameLineEdit.setText('') # Clear the field if no object is selected
+            self.assetNameLineEdit.setText('') 
 
 
 # Example to run the dialog
